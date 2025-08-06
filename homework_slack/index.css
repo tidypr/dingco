@@ -181,6 +181,12 @@ textarea{
     font-weight: 500;
     line-height: 24px; 
 }
+#비밀번호재입력alert{
+    width: 400px;
+    font-size: 14px;
+    color:red;
+    padding-left : 110px;
+}
 .바디_메인_회원가입_전화번호{
     width :520px ;
     padding-left: 32px;
@@ -204,7 +210,7 @@ textarea{
     flex-direction: column;
     justify-content: flex-end;
     align-items: end;
-    color: var(--gray-800, #333);
+    gap : 10px;
     font-family: "Pretendard Variable";
     font-size: 22px;
     font-style: normal;
@@ -214,17 +220,18 @@ textarea{
 .인증번호{
     display: flex;
     flex-direction: row;
-    
+    align-items: center;
     /* justify-content: flex-end; */
     /* align-items: end; */
 }
 .남은시간{
     display: flex;
     flex-direction: row;
+    align-items: center;
     /* justify-content: flex-end; */
     /* align-items: end; */
 }
-#버튼 {
+#인증요청버튼 {
     display: flex;
     width: 136px;
     min-width: 120px;
@@ -234,8 +241,8 @@ textarea{
     align-items: center;
     gap: 10px;
     border-radius: 8px;
-    border: 1px solid var(--Primary-P-main, #491449);
-    background: var(--gray-W, #FFF);
+    background-color: #491449;
+    color : white;
 }
 #인증하기버튼 {
     display: flex;
@@ -247,8 +254,9 @@ textarea{
     align-items: center;
     gap: 10px;
     border-radius: 8px;
-    border: 1px solid var(--Primary-P-main, #491449);
-    background: var(--gray-W, #FFF);
+    background-color: gray;
+    
+
 }
 
 .바디_메인_회원가입_자기소개{
@@ -318,7 +326,6 @@ textarea{
 
 }
 .바디_메인_회원가입_가입{
-    color: var(--gray-W, #FFF);
     text-align: center;
     font-family: "Pretendard Variable";
     font-size: 20px;
@@ -326,10 +333,9 @@ textarea{
     font-weight: 600;
     line-height: 24px; /* 120% */
     border-radius: 8px;
-    background: #491449;
     width: 448px;
     height: 48px;
-    
+    background-color: gray;
 }
 .바디_메인_사진{
     width:680px;
