@@ -53,7 +53,7 @@
 .카드영역{
     width: 784px;
     height: 1209px;
-    background-color: rgb(24, 24, 19);
+    background-color: white;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
