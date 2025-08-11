@@ -68,8 +68,7 @@ const 일기카드목록 = () =>{
     `
     if(행복){
        document.getElementById(`카드이미지${i}`).style.backgroundImage = "url('./assets/Frame4.png')"
-    }
-    else if(슬픔){
+    }else if(슬픔){
         image_url = "./assets/Frame1.png"
         document.getElementById(`카드이미지${i}`).style.backgroundImage = "url('./assets/Frame1.png')"  
     }else if(놀람){
@@ -78,6 +77,7 @@ const 일기카드목록 = () =>{
     }else if(화남){
         image_url = "./assets/Frame3.png"
         document.getElementById(`카드이미지${i}`).style.backgroundImage = "url('./assets/Frame3.png')"
+    }else if(기타){
         image_url = "./assets/Frame5.png"
         document.getElementById(`카드이미지${i}`).style.backgroundImage = "url('./assets/Frame5.png')" 
     }
@@ -85,24 +85,3 @@ const 일기카드목록 = () =>{
     i+=1  
     
 }
-
-// const 카드이미지변경 = ()=>{
-//     if(행복){
-//         image_url = "./assets/Frame4.png"
-//         document.getElementById("카드이미지").style.backgroundImage =url(image_url)
-//     }
-//     else if(슬픔){
-//         image_url = "./assets/Frame1.png"
-//         document.getElementById("카드이미지").style.backgroundImage =url(image_url)   
-//     }else if(놀람){
-//         image_url = "./assets/Frame2.png"
-//         document.getElementById("카드이미지").style.backgroundImage =url(image_url)   
-//     }else if(화남){
-//         image_url = "./assets/Frame3.png"
-//         document.getElementById("카드이미지").style.backgroundImage =url(image_url)   
-//     }else {
-//         image_url = "./assets/Frame5.png"
-//         document.getElementById("카드이미지").style.backgroundImage =url(image_url)   
-//     }
-//     return image_url
-// }
