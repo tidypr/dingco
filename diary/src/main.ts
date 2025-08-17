@@ -1,9 +1,11 @@
+import './filterMenu';
 import './storageControl';
+import './tabs';
 import { getLocalStorage, initLocalStorage, setLocalStorage } from './storageControl';
 import { switchTextColor } from './utils/switchTextColor';
 import type { TCard } from './storageControl';
 import { formatDate } from './utils/formatDate';
-import './filterMenu';
+
 import { handleCloseModal, handleOpenModal } from './modal';
 
 // const myName = prompt("이름을 입력하세요.");
@@ -21,22 +23,24 @@ const contentInputEl = document.querySelector('#content')! as HTMLInputElement;
 const submitDiaryBtnEl = document.querySelector('.submitDiaryBtn')! as HTMLButtonElement;
 // const filterDiaryBtnEl = document.querySelector('#dropdown')! as HTMLDivElement;
 const filterDiaryBtnEl = document.querySelector('.dropdown-button')! as HTMLButtonElement;
-const dropdownEl = document.querySelector('.dropdown')! as HTMLSelectElement;
+const dropdownEl = document.querySelector('.dropdown-diary')! as HTMLSelectElement;
 const dropdownMenuEl = document.querySelector('.dropdown-menu')! as HTMLSelectElement;
 const dropdownMenuItemEl = document.querySelector('.dropdown-menu-item')! as HTMLSelectElement;
+
+const imgDropdownMenuEl = document.querySelector('.dropdown-img')! as HTMLSelectElement;
+const imgDropdownMenuItemEl = document.querySelector('.img-dropdown-menu')! as HTMLSelectElement;
 
 const selectedItemEL = document.querySelector('.selected-item') as HTMLSpanElement;
 const addDiaryBtnEl = document.querySelector('.addDiaryBtn') as HTMLSpanElement;
 
 addDiaryBtnEl.addEventListener('click', handleOpenModal);
 
-dropdownMenuItemEl.addEventListener('click', () => {
-  // const url = new URL('dqdqw/');
-  // window.location.replace(url);
-});
-
 dropdownEl.addEventListener('click', () => {
   dropdownMenuEl.style.display = 'block';
+});
+
+imgDropdownMenuEl.addEventListener('click', () => {
+  imgDropdownMenuItemEl.style.display = 'block';
 });
 
 // filterDiaryBtnEl.addEventListener('click', () => {
@@ -105,7 +109,7 @@ const addDiaryDom = (props: TCard) => {
   container.setAttribute('id', `${props.id}`);
   //
   const img = document.createElement('img');
-  img.setAttribute('src', `./assets/images/${props.state} (m).png`);
+  img.setAttribute('src', `/assets/images/${props.state} (m).png`);
   img.style = 'position: relative;';
   //
   const inner = document.createElement('div');
@@ -170,7 +174,7 @@ const displayDiaryDom = () => {
   if (selectedValue === '전체') {
     filteredData = diaryList;
   } else {
-    filteredData = diaryList.filter((diary: TCard) => {
+    filteredData = diaryList?.filter((diary: TCard) => {
       selectedItemEL.innerText = selectedValue || '전체';
 
       return selectedValue ? diary.state === selectedValue : true;
@@ -179,7 +183,7 @@ const displayDiaryDom = () => {
     // 선택 감정 replace
   }
 
-  filteredData.forEach((card: TCard) => {
+  filteredData?.forEach((card: TCard) => {
     cardListEl.insertAdjacentElement('beforeend', addDiaryDom(card));
   });
 };

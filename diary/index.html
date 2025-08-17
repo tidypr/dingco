@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/assets/styles/main.css" />
     <link rel="stylesheet" href="/assets/styles/newDiary.css" />
     <link rel="stylesheet" href="/assets/styles/mediaQuery.css" />
+    <link rel="stylesheet" href="/assets/styles/skeleton.css" />
 
     <script type="module" src="/src/main.ts"></script>
   </head>
@@ -94,41 +95,87 @@
         <div class="banner">
           <img src="/assets/images/0da87750d72d05561bfdb209c688de2957f78ef1.jpg" alt="" />
         </div>
+        <!-- 일기보관함 / 사진보관함 -->
         <nav class="storageList">
-          <ul>
-            <li><span class="activeMenu">일기보관함</span></li>
-            <li><span>사진보관함</span></li>
+          <ul class="tabList">
+            <li class="tab_diary activeMenu">일기보관함</li>
+            <li class="tab_image">사진보관함</li>
           </ul>
         </nav>
-        <!-- Filter -->
-        <div class="filterState">
-          <div class="dropdown">
-            <button class="dropdown-button">
-              <span class="selected-item">전체</span>
-              <img src="./assets/icons/keyboard_arrow_down.svg" alt="" />
+
+        <div class="section-main">
+          <div class="search-filter-new">
+            <!-- 검색 -->
+            <div class="search-input">
+              <img width="24px" src="/assets/icons/search.svg" alt="searchIcon" />
+              <input type="text" placeholder="검색어를 입력해 주세요." />
+            </div>
+
+            <!-- 필터버튼, 새 일기 작성 -->
+            <div class="filter-new">
+              <div class="dropdown-diary">
+                <button class="dropdown-button">
+                  <span class="selected-item">전체</span>
+                  <img src="/assets/icons/arrow_drop_down_24dp_5F6368_FILL1_wght400_GRAD0_opsz24 1.svg" alt="" />
+                </button>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-menu-item">전체</li>
+                  <li class="dropdown-menu-item">행복해요</li>
+                  <li class="dropdown-menu-item">슬퍼요</li>
+                  <li class="dropdown-menu-item">놀랐어요</li>
+                  <li class="dropdown-menu-item">화나요</li>
+                  <li class="dropdown-menu-item">기타</li>
+                </ul>
+              </div>
+              <button class="addDiaryBtn">
+                <img src="./assets/icons/addDiary.svg" alt="" />
+                <span>일기쓰기</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="cardContainer">
+            <div class="cardList"></div>
+          </div>
+          <div class="empty-diary">
+            <p>등록된 일기가 없습니다.</p>
+          </div>
+        </div>
+
+        <div class="section-sub">
+          <div class="dropdown-img" style="display: none">
+            <button class="img-dropdown-button">
+              <span class="img-selected-item">기본</span>
+              <img src="/assets/icons/arrow_drop_down_24dp_5F6368_FILL1_wght400_GRAD0_opsz24 1.svg" alt="" />
             </button>
-            <ul class="dropdown-menu">
-              <li class="dropdown-menu-item">전체</li>
-              <li class="dropdown-menu-item">행복해요</li>
-              <li class="dropdown-menu-item">슬퍼요</li>
-              <li class="dropdown-menu-item">놀랐어요</li>
-              <li class="dropdown-menu-item">화나요</li>
-              <li class="dropdown-menu-item">기타</li>
+            <ul class="img-dropdown-menu">
+              <li id="basic" class="img-dropdown-menu-item">기본</li>
+              <li id="horizontal" class="img-dropdown-menu-item">가로형</li>
+              <li id="vertical" class="img-dropdown-menu-item">세로형</li>
             </ul>
           </div>
-          <button class="addDiaryBtn">
-            <img src="./assets/icons/addDiary.svg" alt="" />
-            <span>일기쓰기</span>
-          </button>
+        </div>
+        <!-- 사진보관함 -->
+
+        <div class="section-image" style="display: none">
+          <div class="skeleton-list">
+            <div class="basic-ratio-1-1 skeleton">
+              <hr />
+              <hr />
+            </div>
+            <div class="basic-ratio-1-1 skeleton">
+              <hr />
+              <hr />
+            </div>
+            <div class="basic-ratio-1-1 skeleton">
+              <hr />
+              <hr />
+            </div>
+          </div>
         </div>
 
         <div class="topscroll">
           <img src="./assets/icons/topscroll fab.svg" alt="" />
-        </div>
-
-        <div class="section-main">
-          <!-- 메인 섹션 -->
-          <div class="cardList"></div>
         </div>
       </main>
       <footer class="footer x-container">
