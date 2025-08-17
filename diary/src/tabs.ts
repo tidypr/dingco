@@ -4,7 +4,7 @@ const tabDiaryEl = document.querySelector('.tab_diary') as HTMLDivElement;
 const tabimageEl = document.querySelector('.tab_image') as HTMLDivElement;
 
 const diarySectionEl = document.querySelector('.section-main') as HTMLDivElement;
-const diarySectionsubEl = document.querySelector('.section-sub') as HTMLDivElement;
+// const diarySectionsubEl = document.querySelector('.section-sub') as HTMLDivElement;
 const imageSectionEl = document.querySelector('.section-image') as HTMLDivElement;
 // const storageListEl = document.querySelector('.cardList') as HTMLDivElement;
 

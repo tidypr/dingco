@@ -25,7 +25,7 @@ const submitDiaryBtnEl = document.querySelector('.submitDiaryBtn')! as HTMLButto
 const filterDiaryBtnEl = document.querySelector('.dropdown-button')! as HTMLButtonElement;
 const dropdownEl = document.querySelector('.dropdown-diary')! as HTMLSelectElement;
 const dropdownMenuEl = document.querySelector('.dropdown-menu')! as HTMLSelectElement;
-const dropdownMenuItemEl = document.querySelector('.dropdown-menu-item')! as HTMLSelectElement;
+// const dropdownMenuItemEl = document.querySelector('.dropdown-menu-item')! as HTMLSelectElement;
 
 const imgDropdownMenuEl = document.querySelector('.dropdown-img')! as HTMLSelectElement;
 const imgDropdownMenuItemEl = document.querySelector('.img-dropdown-menu')! as HTMLSelectElement;
@@ -71,6 +71,7 @@ const submitForm = (e: SubmitEvent) => {
     date: formatDate(),
     title: titleInputEl.value,
     content: contentInputEl.value,
+    comments: [],
   };
 
   // initialData.push(newData);

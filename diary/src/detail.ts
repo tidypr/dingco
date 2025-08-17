@@ -1,6 +1,6 @@
 // 상세페이지
 
-import { getLocalStorageDetail, setLocalStorage, type Comment, type TCard } from './storageControl';
+import { getLocalStorageDetail, type Comment, type TCard } from './storageControl';
 import { formatDate } from './utils/formatDate';
 import { switchTextColor } from './utils/switchTextColor';
 
@@ -13,7 +13,7 @@ const detailBodyInputEl = document.querySelector('.detail-body-input')! as HTMLI
 const detailDateEl = document.querySelector('.detail-date-label')! as HTMLSpanElement;
 const detailStateEl = document.querySelector('.detail-state')! as HTMLSpanElement;
 const detailEditBtnEl = document.querySelector('.detail-footer-editBtn')! as HTMLSpanElement;
-const detailDeleteBtnEl = document.querySelector('.detail-footer-deleteBtn')! as HTMLSpanElement;
+// const detailDeleteBtnEl = document.querySelector('.detail-footer-deleteBtn')! as HTMLSpanElement;
 const detailIsEditBtnEl = document.querySelector('.detail-footer-isEdit')! as HTMLSpanElement;
 const detailIsEditCancelBtnEl = document.querySelector('.detail-footer-isEdit-cancelBtn')! as HTMLSpanElement;
 const detailIsEditSaveBtnEl = document.querySelector('.detail-footer-isEdit-saveBtn')! as HTMLSpanElement;
