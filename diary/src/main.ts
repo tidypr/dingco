@@ -103,7 +103,7 @@ const handleDeleteDiary = (e: MouseEvent) => {
 
 const addDiaryDom = (props: TCard) => {
   const link = document.createElement('a');
-  link.setAttribute('href', `./pages/diaryDetailPage?id=${props.id}`);
+  link.setAttribute('href', `/pages/diaryDetailPage?id=${props.id}`);
   // div
   const container = document.createElement('div');
   container.setAttribute('class', 'card');
