@@ -110,7 +110,7 @@ const addDiaryDom = (props: TCard) => {
   container.setAttribute('id', `${props.id}`);
   //
   const img = document.createElement('img');
-  img.setAttribute('src', `/assets/images/${props.state} (m).png`);
+  img.setAttribute('src', `/images/${props.state} (m).png`);
   img.style = 'position: relative;';
   //
   const inner = document.createElement('div');
@@ -131,7 +131,7 @@ const addDiaryDom = (props: TCard) => {
 
   // 삭제버튼
   const deleteImg = document.createElement('img');
-  deleteImg.setAttribute('src', './assets/icons/close_icon.svg');
+  deleteImg.setAttribute('src', './icons/close_icon.svg');
   deleteImg.classList.add('deleteDiaryBtn');
 
   deleteImg.addEventListener('click', handleDeleteDiary);
