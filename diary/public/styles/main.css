@@ -592,7 +592,7 @@ footer > div {
   gap: 8px;
 }
 
-.search-input {
+.search-diary {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -601,7 +601,7 @@ footer > div {
   padding: 8px 16px;
 }
 
-.search-input > input {
+.search-diary > input {
   width: 100%;
   border: none;
   outline: none;

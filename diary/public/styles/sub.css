@@ -64,3 +64,27 @@
     transform: translateY(100%);
   }
 }
+
+.toggle {
+  appearance: none;
+  width: 40px;
+  height: 24px;
+  background-color: lightgray;
+  border-radius: 20px;
+  padding: 2px;
+}
+.toggle::after {
+  display: block;
+  content: '';
+  background-color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+.toggle:checked {
+  background-color: greenyellow;
+}
+.toggle:checked::after {
+  transform: translateX(calc(100% - 2px - 2px));
+}

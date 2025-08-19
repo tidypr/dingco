@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="/styles/sub.css" />
 
     <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="/src/searchDiary.ts"></script>
+    <script type="module" src="/src/darkmode.ts"></script>
   </head>
   <body>
     <div id="app">
@@ -88,7 +90,7 @@
         </a>
         <div class="darkModeBtn">
           <span class="darkModeText">다크모드</span>
-          <img src="/icons/toggle.png" alt="" />
+          <input id="darkmodeBtn" type="checkbox" class="toggle" />
         </div>
       </header>
       <!-- MAIN -->
@@ -107,9 +109,9 @@
         <div class="section-main">
           <div class="search-filter-new">
             <!-- 검색 -->
-            <div class="search-input">
+            <div class="search-diary">
               <img width="24px" src="/icons/search.svg" alt="searchIcon" />
-              <input type="text" placeholder="검색어를 입력해 주세요." />
+              <input id="search-input" type="text" placeholder="검색어를 입력해 주세요." />
             </div>
 
             <!-- 필터버튼, 새 일기 작성 -->

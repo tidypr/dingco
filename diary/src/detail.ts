@@ -1,6 +1,7 @@
 // 상세페이지
 
-import { getLocalStorageDetail, type Comment, type TCard } from './storageControl';
+import { getLocalStorageDetail } from './storageControl';
+import type { TCard, TComment } from './types';
 import { formatDate } from './utils/formatDate';
 import { switchTextColor } from './utils/switchTextColor';
 
@@ -115,7 +116,7 @@ submitEl.addEventListener('submit', (e) => {
   console.log('submit!');
 
   const commentInputEl = document.querySelector('.comment-input')! as HTMLInputElement;
-  const newComment: Comment = {
+  const newComment: TComment = {
     id: realgetParams() || 1,
     text: commentInputEl.value,
     date: formatDate(),

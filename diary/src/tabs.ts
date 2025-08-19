@@ -30,6 +30,20 @@ const tabDiary = () => {
 
 let dogData: string[] | undefined;
 
+const displayImg = (dogData: string[], type?: string) => {
+  const imgCard = document.createElement('img');
+
+  if (type) {
+    imgCard.classList.add(type);
+  }
+
+  dogData?.forEach((item: string) => {
+    const imgClone = imgCard.cloneNode() as HTMLImageElement;
+    imgClone.setAttribute('src', item);
+    imageSectionEl.insertAdjacentElement('beforeend', imgClone);
+  });
+};
+
 const tabImage = async (type: string) => {
   tabDiaryEl.classList.remove('activeMenu');
   tabimageEl.classList.add('activeMenu');
@@ -43,16 +57,7 @@ const tabImage = async (type: string) => {
   skeletonListEl.style = 'display: none;';
 
   imageSectionEl.innerHTML = '';
-
-  const imgCard = document.createElement('img');
-
-  imgCard.classList.add(type);
-
-  dogData?.forEach((item: string) => {
-    const imgClone = imgCard.cloneNode() as HTMLImageElement;
-    imgClone.setAttribute('src', item);
-    imageSectionEl.insertAdjacentElement('beforeend', imgClone);
-  });
+  displayImg(dogData, type);
 };
 
 // TODO
@@ -73,3 +78,29 @@ tabimageEl?.addEventListener('click', tabImage.bind(null, 'basic-ratio-1-1'));
 pictureBasic.addEventListener('click', mutateImageSection.bind(null, 'basic-ratio-1-1'));
 pictureHorizontal.addEventListener('click', mutateImageSection.bind(null, 'basic-ratio-4-3'));
 pictureVertical.addEventListener('click', mutateImageSection.bind(null, 'basic-ratio-3-4'));
+
+let delay: null | number = null;
+
+const scrollFn = async () => {
+  const all = document.documentElement.scrollHeight; // SCROLL_HEIGHT: 전체 높이
+  const top = document.documentElement.scrollTop; // SCROLL_TOP: 내려온 높이
+  const rest = document.documentElement.clientHeight; // CLIENT_HEIGHTs
+
+  const scrollPer = top / (all - rest);
+
+  if (scrollPer < 0.7) return;
+  if (delay !== null) return;
+
+  delay = setTimeout(async () => {
+    const data = await fetchDogData();
+    displayImg(data, 'basic-ratio-1-1');
+    delay = null;
+
+    if (Math.ceil(top + rest) >= all) {
+      const data = await fetchDogData();
+      displayImg(data, 'basic-ratio-1-1');
+    }
+  }, 1000);
+};
+
+window.addEventListener('scroll', scrollFn);

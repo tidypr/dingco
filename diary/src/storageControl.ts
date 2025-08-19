@@ -1,21 +1,7 @@
+import type { TCard } from './types';
+
 const emptyDiaryEl = document.querySelector('.empty-diary') as HTMLSpanElement;
 const cardContainerEl = document.querySelector('.cardContainer')! as HTMLSpanElement;
-
-export type Comment = {
-  id: number;
-  text: string;
-  date: string;
-};
-
-export type TCard = {
-  id: number;
-  imgUrl: string;
-  state: string;
-  date: string;
-  title: string;
-  content: string;
-  comments: Comment[];
-};
 
 export const initialData: TCard[] = [];
 
@@ -53,22 +39,14 @@ export const setLocalStorage = (newData: TCard) => {
   localStorage.setItem('myDiary', convertString);
 };
 
-const setTime = new Promise((resolve) => {
-  setTimeout(() => {
-    resolve('Time is up!');
-  }, 3000);
-});
+export const fetchDogData = async (): Promise<string[]> => {
+  console.log('Run fetchDogData');
+  // await setTime;
 
-export const fetchDogData = async () => {
-  await setTime;
   const res = await fetch('https://dog.ceo/api/breeds/image/random/10');
   const data = await res.json();
   return data.message;
 };
-
-//
-//
-//
 
 export const getLocalStorageDetail = () => {
   const myDiary = localStorage.getItem('myDiary')!;
