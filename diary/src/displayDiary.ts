@@ -50,7 +50,7 @@ export const addDiaryDom = (props: TCard) => {
   inner.appendChild(date);
 
   const title = document.createElement('div');
-  title.innerText = `${props.title.slice(0, 22)}...`;
+  title.innerText = `${props.title}`;
   title.setAttribute('class', 'cardTitle');
 
   // 삭제버튼
