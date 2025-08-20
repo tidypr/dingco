@@ -1,3 +1,33 @@
+#app-detail {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+#app-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1168px;
+  padding: 0 20px;
+}
+
+#backBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#backBtn > span {
+  color: #000;
+  font-family: var(--font-family);
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1rem; /* 88.889% */
+  letter-spacing: -0.01125rem;
+}
+
 .detail {
   gap: 40px;
 }
@@ -8,10 +38,29 @@
   max-width: 1168px;
   border-bottom: 1px solid #000;
   padding-bottom: 24px;
+  /* justify-content: center; */
+  align-items: center;
 }
+
+.detail-nav {
+  display: flex;
+  /* max-width: 1168px; */
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 52px;
+  padding: 12px 0;
+  margin-bottom: 40px;
+  max-width: 1168px;
+}
+.detail-header {
+  width: 100%;
+}
+
 .detail-title {
   display: flex;
   max-width: 1168px;
+  font-weight: 700;
   padding-bottom: 12px;
   align-items: center;
   gap: 10px;
@@ -32,7 +81,7 @@
   border: 1px solid var(--Gray-Gray-200, #d4d3d3);
   background: var(--Gray-W, #fff);
   color: var(--Gray-B, #000);
-  font-family: 'Pretendard Variable';
+  font-family: var(--font-family);
 
   font-style: normal;
   font-weight: 500;
@@ -40,10 +89,15 @@
   letter-spacing: -0.16px;
 }
 
+.detail-content {
+  width: 100%;
+}
+
 .detail-body-input {
   display: none;
+  width: 100%;
+  height: 100%;
   color: var(--Gray-B, #000);
-  font-family: 'Pretendard Variable';
 
   font-style: normal;
   font-weight: 500;
@@ -53,13 +107,12 @@
   border: 1px solid var(--Gray-Gray-200, #d4d3d3);
   background: var(--Gray-W, #fff);
   color: var(--Gray-B, #000);
-  font-family: 'Pretendard Variable';
+  font-family: var(--font-family);
 
   font-style: normal;
   font-weight: 500;
   line-height: 24px; /* 150% */
   letter-spacing: -0.16px;
-  height: fit-content;
 }
 .detail-head {
   display: flex;
@@ -72,6 +125,22 @@
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.detail-btns {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.copyText {
+  color: var(--Gray-Gray-900, #1c1c1c);
+  font-family: var(--font-family);
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5rem; /* 200% */
+  letter-spacing: -0.0075rem;
 }
 
 .detail-body {
@@ -92,7 +161,7 @@
 
 .detail-body-lable {
   color: #000;
-  font-family: 'Pretendard Variable';
+  font-family: var(--font-family);
 
   font-style: normal;
   font-weight: 600;
@@ -110,7 +179,7 @@
   align-self: stretch;
 }
 
-.detail-footer-editBtn {
+.detail-Btn {
   display: flex;
   padding: 8px 10px;
   flex-direction: column;
@@ -163,10 +232,27 @@
   color: #ffffff;
 }
 
+#comment-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+#comment-section > p {
+  color: var(--Gray-Gray-500, #919191);
+  font-family: var(--font-family);
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.5rem; /* 200% */
+  letter-spacing: -0.0075rem;
+  text-align: center;
+  padding: 16px 0;
+}
 .comment {
-  padding: 24px 0;
   color: #000;
-  font-family: 'Pretendard Variable';
+  font-family: var(--font-family);
   font-size: 18px;
   font-style: normal;
   font-weight: 600;
@@ -179,11 +265,12 @@
   align-items: center;
   gap: 16px;
   align-self: stretch;
+  width: 100%;
 }
 
 .comment-layout > button {
   display: flex;
-  height: 48px;
+  height: 40px;
   padding: 8px 10px;
   flex-direction: column;
   justify-content: center;
@@ -195,6 +282,7 @@
 }
 .comment-input {
   display: flex;
+  width: 100%;
   padding: 12px 16px;
   align-items: center;
   gap: 10px;

@@ -1,4 +1,3 @@
-
 const selectFilterMenu = Array.from(document.querySelectorAll('.dropdown-menu-item')) as HTMLInputElement[];
 
 if (selectFilterMenu) {
@@ -6,9 +5,8 @@ if (selectFilterMenu) {
     item.addEventListener('click', () => {
       const value = item.innerText;
       const url = new URL(window.location.href);
-      url.searchParams.set('select', value);
+      url.searchParams.set('category', value);
       window.location.href = url.toString();
-      
     });
   });
 }

@@ -1,15 +1,15 @@
 export type TComment = {
   id: number;
-  text: string;
+  comment: string;
   date: string;
 };
 
 export type TCard = {
   id: number;
   imgUrl: string;
-  state: string;
+  category: string;
   date: string;
   title: string;
   content: string;
-  comments: Comment[];
+  comments: TComment[];
 };

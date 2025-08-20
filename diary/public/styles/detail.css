@@ -1,18 +1,6 @@
-header {
-  display: flex;
-  /* max-width: 1168px; */
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: 60px;
-  padding: 1.125rem;
-  max-width: 1168px;
-  box-sizing: border-box;
-}
-
 .darkModeText {
   color: var(--Gray-Gray-900, #1c1c1c);
-  font-family: 'Pretendard Variable';
+  font-family: var(--font-family);
   font-size: 0.75rem;
   font-style: normal;
   font-weight: 400;
@@ -43,10 +31,23 @@ header {
   display: flex;
   gap: 8px;
   color: var(--Gray-Gray-500, #919191);
-  font-family: 'Pretendard Variable';
+  font-family: var(--font-family);
   font-size: 0.75rem;
   font-style: normal;
   font-weight: 400;
   line-height: 1rem; /* 133.333% */
   letter-spacing: -0.0075rem;
+}
+
+.djqwdwqdqw {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #919191;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--Gray-Gray-200, #e5e5e5);
+}
+
+.djqwdwqdqw:nth-last-child(1) {
+  border-bottom: none;
 }
