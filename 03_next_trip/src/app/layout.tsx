@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Header from '@/components/Header';
 import Providers from '@/config/Providers';
-import { geistMono, geistSans } from '@/assets/fonts/fonts';
+import { Pretendard } from '@/assets/fonts/fonts';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,13 +16,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
+    <html lang='ko' className={`${Pretendard.variable}`}>
       <Providers>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} flex h-full w-full flex-col items-center justify-center gap-10 antialiased`}
+          className={`font-Pretendard flex h-full w-full flex-col items-center justify-center gap-10 antialiased`}
         >
           <Header />
-          {children}
+          <main>{children}</main>
         </body>
       </Providers>
     </html>

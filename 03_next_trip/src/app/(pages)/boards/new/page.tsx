@@ -51,23 +51,25 @@ export default function BoardsNewPage() {
   const onSubmitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // const data = new FormData(e.target as HTMLFormElement).get('username');
-    const newPost = {
-      userName,
-      password,
-      title,
-      content,
-      youtubeLink,
-    };
+    // const newPost = {
+    //   userName,
+    //   password,
+    //   title,
+    //   content,
+    //   youtubeLink,
+    // };
 
     const result = await createBoard({
-      // variables(= $)
       variables: {
-        // writer: userName,
-        // title: title,
-        // contents: content,
-        ...newPost,
-        writer: userName,
-        contents: content,
+        createBoardInput: {
+          // ...newPost,
+          title,
+          contents: content,
+          password,
+          writer: userName,
+          youtubeUrl: youtubeLink,
+          images: ['', ''],
+        },
       },
     });
 
