@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, type ChangeEvent, type FormEvent } from 'react';
-// import Header from '@/components/Header';
 import ImageUpload from '@/components/ImageUpload';
 import InputBox from '@/components/InputBox';
 import TextAreaBox from '@/components/TextAreaBox';
+import { CREATE_BOARD } from '@/apis/graphql/board';
+import { useMutation } from '@apollo/client';
 
 export default function BoardsNewPage() {
   const [userName, setUserName] = useState<string>('');
@@ -14,16 +15,12 @@ export default function BoardsNewPage() {
   const [youtubeLink, setYoutubeLink] = useState<string>('');
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
-  // interface ChangeEvent {
-  //   target: {
-  //     value: string | number;
-  //   };
-  // }
+  const [createBoard] = useMutation(CREATE_BOARD);
 
   const isSubmitCheck = () => {
     // console.log(userName.trim(), password.trim(), title.trim(), content.trim());
     if (userName.trim() && password.trim() && title.trim() && content.trim()) {
-      alert(`게시글 등록이 가능한 상태입니다!`);
+      // alert(`게시글 등록이 가능한 상태입니다!`);
       setIsSubmit(true);
     } else {
       setIsSubmit(false);
@@ -51,7 +48,7 @@ export default function BoardsNewPage() {
     setYoutubeLink(e.target.value);
   };
 
-  const onSubmitForm = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // const data = new FormData(e.target as HTMLFormElement).get('username');
     const newPost = {
@@ -62,7 +59,24 @@ export default function BoardsNewPage() {
       youtubeLink,
     };
 
-    console.log(newPost);
+    const result = await createBoard({
+      // variables(= $)
+      variables: {
+        // writer: userName,
+        // title: title,
+        // contents: content,
+        ...newPost,
+        writer: userName,
+        contents: content,
+      },
+    });
+
+    setUserName('');
+    setPassword('');
+    setTitle('');
+    setContent('');
+    setYoutubeLink('');
+    console.log(result);
   };
 
   return (
@@ -130,8 +144,8 @@ export default function BoardsNewPage() {
             </div>
             <div className='flex gap-2'>
               <input
-                id='address'
-                name='address'
+                id='addressNum'
+                name='addressNum'
                 type='number'
                 className='w-full flex-1 gap-2 rounded-lg px-4 py-3 outline outline-1 outline-gray-200'
                 placeholder='01234'
@@ -148,8 +162,8 @@ export default function BoardsNewPage() {
               placeholder='주소를 입력해 주세요.'
             />
             <input
-              id='address'
-              name='address'
+              id='addressdetail'
+              name='addressdetail'
               type='text'
               className='w-full flex-1 gap-2 rounded-lg px-4 py-3 outline outline-1 outline-gray-200'
               placeholder='상세주소'
