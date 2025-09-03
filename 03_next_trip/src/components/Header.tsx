@@ -7,17 +7,31 @@ const navList = [
 import Image from 'next/image';
 import Logo from '@/assets/logo.svg';
 import Link from 'next/link';
+import { Ioutline_login } from '@/assets/icons/icons';
 
 export default function Header() {
   return (
     <>
-      <header className='top-0 flex h-20 w-full max-w-7xl items-center justify-between'>
+      <header className='desktop:hidden flex h-12 w-full items-center justify-between px-5'>
+        {/* LOGO */}
+        <Link href='/'>
+          {/* <Image src={Logo} alt='Logo' /> */}
+          <span>트립토크</span>
+        </Link>
+        <Link href='/login' className='flex gap-1'>
+          <span>로그인</span>
+          <Image src={Ioutline_login} alt='login' />
+        </Link>
+      </header>
+      <header className='desktop:flex tablet:h-20 top-0 hidden h-12 w-full max-w-7xl items-center justify-between'>
         <div className='flex gap-6'>
           {/* LOGO */}
           <Link href='/'>
             <Image src={Logo} alt='Logo' />
           </Link>
-          {/* NaVBar */}
+          {/* Modile NaVBar */}
+          <nav className='desktop:hidden'></nav>
+          {/* Desktop NaVBar */}
           <nav>
             <ul className='flex gap-4'>
               {navList.map((item) => (
@@ -36,3 +50,4 @@ export default function Header() {
     </>
   );
 }
+

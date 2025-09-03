@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang='ko' className={`${Pretendard.variable}`}>
       <Providers>
         <body
-          className={`font-Pretendard flex h-full w-full flex-col items-center justify-center gap-10 antialiased`}
+          className={`flex h-full w-full flex-col items-center justify-center font-Pretendard antialiased`}
         >
           <Header />
           <main>{children}</main>
