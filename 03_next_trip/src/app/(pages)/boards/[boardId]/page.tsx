@@ -45,7 +45,7 @@ export default function BoardsDetailPage() {
               {data?.fetchBoard.updatedAt
                 ? formatDate(data?.fetchBoard.updatedAt)
                 : '-'}
-            </span>
+            </span> 
           </div>
 
           <hr className='my-4 inline-block h-1' />
