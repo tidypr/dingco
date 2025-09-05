@@ -12,6 +12,14 @@ type TFormProps = {
   isEdit: boolean;
 };
 
+// const boardForm = {
+//   writer: '',
+//   password: '',
+//   title: '',
+//   contents: '',
+//   youtubeUrl: '',
+// };
+
 export default function BoardForm({ isEdit }: TFormProps) {
   const router = useRouter();
   const [writer, setWriter] = useState<string>('');
