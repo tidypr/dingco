@@ -18,7 +18,7 @@ export default function Board({
 
   const onClickDelete = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    event.stopPropagation();
+    // event.stopPropagation();
     try {
       const result = await deleteBoard({
         variables: {

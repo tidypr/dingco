@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 import Header from '@/components/Header';
-import Providers from '@/config/Providers';
+import Banner from '@/components/Banner';
+import Providers from './Providers';
 import { Pretendard } from '@/assets/fonts/fonts';
 import BottomNavBar from '@/components/BottomNav/BottomNavBar';
 
@@ -21,10 +22,12 @@ export default function RootLayout({
     <html lang='ko' className={`${Pretendard.variable}`}>
       <Providers>
         <body
-          className={`flex h-full w-full flex-col items-center justify-center font-Pretendard antialiased`}
+          className={`flex h-full max-w-7xl flex-col items-center justify-center font-Pretendard antialiased`}
         >
           <Header />
-          <main className='flex-1 py-16'>{children}</main>
+          <Banner />
+
+          <main className='w-full flex-1 py-16'>{children}</main>
           <BottomNavBar />
         </body>
       </Providers>

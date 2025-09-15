@@ -2,27 +2,69 @@ import { useState, type ChangeEvent, type FormEvent } from 'react';
 import ImageUpload from '@/components/ImageUpload';
 import InputBox from '@/components/common/InputBox';
 import TextAreaBox from '@/components/common/TextAreaBox';
-import { CREATE_BOARD, FETCH_BOARD, UPDATE_BOARD } from '@/apis/graphql/board';
+import { FETCH_BOARD, UPDATE_BOARD } from '@/apis/graphql/board';
 import { useMutation, useQuery } from '@apollo/client';
 import { useParams, useRouter } from 'next/navigation';
 import { getInputPassword } from '@/utils/utils';
+import {
+  CreateBoardDocument,
+  CreateBoardMutation,
+  CreateBoardMutationVariables,
+} from '@/types/gql/graphql';
+// import CustomModal from '../Modal/CustomModal';
+import PostCodeModal from '../Modal/PostCodeModal';
 // import { getInputPassword } from '@/utils/utils';
+// import { Board } from '@/types/gql/graphql';
 
 type TFormProps = {
   isEdit: boolean;
 };
 
-// const boardForm = {
-//   writer: '',
-//   password: '',
-//   title: '',
-//   contents: '',
-//   youtubeUrl: '',
-// };
+const initBoardFormData = {
+  writer: '',
+  password: '',
+  title: '',
+  contents: '',
+  youtubeUrl: '',
+  boardAddress: {
+    zipcode: '',
+    address: '',
+    addressDetail: '',
+  },
+};
+
+type TAddress = {
+  zipcode: string;
+  address: string;
+};
 
 export default function BoardForm({ isEdit }: TFormProps) {
+  const [boardFormData, setBoardFormData] = useState(initBoardFormData);
+
+  const onChangeBoardFormData = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e);
+    setBoardFormData({
+      ...boardFormData,
+      [e.target.name]: e.target.value,
+    });
+    console.log(boardFormData);
+  };
+
+  const onInputAddress = (address: TAddress) => {
+    setBoardFormData({
+      ...boardFormData,
+      boardAddress: {
+        // 기존 값 유지
+        ...boardFormData.boardAddress,
+
+        // 새로운 값 업데이트
+        ...address,
+      },
+    });
+    console.log(initBoardFormData);
+  };
+
   const router = useRouter();
-  const [writer, setWriter] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const [contents, setContents] = useState<string>('');
@@ -37,12 +79,21 @@ export default function BoardForm({ isEdit }: TFormProps) {
     },
   });
 
-  const [createBoard] = useMutation(CREATE_BOARD);
+  // const [createBoard] = useMutation(CREATE_BOARD);
+  const [createBoard] = useMutation<
+    CreateBoardMutation,
+    CreateBoardMutationVariables
+  >(CreateBoardDocument);
   const [updateBoard] = useMutation(UPDATE_BOARD);
 
   const isSubmitCheck = () => {
     //
-    if (writer.trim() && password.trim() && title.trim() && contents.trim()) {
+    if (
+      initBoardFormData.writer.trim() &&
+      password.trim() &&
+      title.trim() &&
+      contents.trim()
+    ) {
       // alert(`게시글 등록이 가능한 상태입니다!`);
       setIsSubmit(true);
     } else {
@@ -50,9 +101,9 @@ export default function BoardForm({ isEdit }: TFormProps) {
     }
   };
 
-  const onChangeWriter = (e: ChangeEvent<HTMLInputElement>) => {
-    setWriter(e.target.value);
-  };
+  // const onChangeWriter = (e: ChangeEvent<HTMLInputElement>) => {
+  //   setWriter(e.target.value);
+  // };
 
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -109,7 +160,7 @@ export default function BoardForm({ isEdit }: TFormProps) {
         alert(error.message);
       }
     } finally {
-      setWriter('');
+      // setWriter('');
       setPassword('');
       setTitle('');
       setContents('');
@@ -136,12 +187,15 @@ export default function BoardForm({ isEdit }: TFormProps) {
             title,
             contents,
             password,
-            writer,
+            writer: boardFormData.writer,
             youtubeUrl,
             images: [
               'codecamp-file-storage/2024/1/10/IMG_9472.jpeg',
               'codecamp-file-storage/2024/10/25/donggle1.jpeg',
             ],
+            boardAddress: {
+              ...boardFormData.boardAddress,
+            },
           },
         },
       });
@@ -151,11 +205,12 @@ export default function BoardForm({ isEdit }: TFormProps) {
       console.log(error);
       alert('에러가 발생하였습니다. 다시 시도해 주세요.');
     } finally {
-      setWriter('');
-      setPassword('');
-      setTitle('');
-      setContents('');
-      setYoutubeUrl('');
+      setBoardFormData(initBoardFormData);
+      // setWriter('');
+      // setPassword('');
+      // setTitle('');
+      // setContents('');
+      // setYoutubeUrl('');
     }
   };
 
@@ -173,19 +228,20 @@ export default function BoardForm({ isEdit }: TFormProps) {
         <div className='h-full w-full flex-1'>
           <div className='flex flex-col gap-10 desktop:flex-row'>
             <InputBox
-              lable='작성자'
+              label='작성자'
               name='writer'
               type='text'
               placeholder='작성자 명을 입력해주세요.'
-              onChange={onChangeWriter}
+              onInput={onChangeBoardFormData}
+              onChange={onChangeBoardFormData}
               required
-              isInput={writer}
+              isInput={boardFormData.writer}
               isSubmitCheck={isSubmitCheck}
               defaultValue={data?.fetchBoard.writer}
               isEdit={isEdit}
             />
             <InputBox
-              lable='비밀번호'
+              label='비밀번호'
               name='password'
               type='password'
               placeholder='비밀번호를 입력해 주세요.'
@@ -203,7 +259,7 @@ export default function BoardForm({ isEdit }: TFormProps) {
           {/* <hr className='h-[.5px] w-full bg-[##E4E4E4]' /> */}
           <div className='h-10'></div>
           <InputBox
-            lable='제목'
+            label='제목'
             name='title'
             type='text'
             placeholder='제목을 입력해 주세요.'
@@ -218,7 +274,7 @@ export default function BoardForm({ isEdit }: TFormProps) {
           {/* <hr className='h-[.5px] w-full bg-[##E4E4E4]' /> */}
           <div className='h-10'></div>
           <TextAreaBox
-            lable='내용'
+            label='내용'
             name='contents'
             placeholder='내용을 입력해 주세요.'
             onChange={onChangeContents}
@@ -241,12 +297,15 @@ export default function BoardForm({ isEdit }: TFormProps) {
                 id='addressNum'
                 name='addressNum'
                 type='number'
-                className='w-full flex-1 gap-2 rounded-lg px-4 py-3 outline outline-1 outline-gray-200'
+                className='w-20 flex-1 gap-2 rounded-lg px-4 py-3 outline outline-1 outline-gray-200'
                 placeholder='01234'
+                value={boardFormData.boardAddress.zipcode}
               />
-              <button className='border-1 bory-gary-200 rounded-xl border px-4 py-3'>
-                우편번호 검색
-              </button>
+
+              <PostCodeModal
+                btnName='우편번호 검색'
+                onInputAddress={onInputAddress}
+              />
             </div>
             <input
               id='address'
@@ -254,6 +313,7 @@ export default function BoardForm({ isEdit }: TFormProps) {
               type='text'
               className='w-full flex-1 gap-2 rounded-lg px-4 py-3 outline outline-1 outline-gray-200'
               placeholder='주소를 입력해 주세요.'
+              value={boardFormData.boardAddress.address}
             />
             <input
               id='addressdetail'
@@ -266,11 +326,11 @@ export default function BoardForm({ isEdit }: TFormProps) {
             {/* <input placeholder={`${placeholder} 입력해 주세요.`}></input> */}
           </div>
           {/*  */}
-          {/* <TextAreaBox lable="주소" placeholder="주소를 입력해 주세요." /> */}
+          {/* <TextAreaBox label="주소" placeholder="주소를 입력해 주세요." /> */}
           <div className='h-10'></div>
           <div className='h-10'></div>
           <InputBox
-            lable='유튜브 링크'
+            label='유튜브 링크'
             name='youtubeUrl'
             type='text'
             placeholder='링크를 입력해 주세요.'

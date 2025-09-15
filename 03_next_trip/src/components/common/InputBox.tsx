@@ -1,11 +1,12 @@
 import { useState } from 'react';
 
 type InputBoxProps = {
-  lable: string;
+  label: string;
   name: string;
   type: string;
   placeholder: string;
   required?: boolean;
+  onInput?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isInput?: string;
   isSubmitCheck?: () => void;
@@ -14,11 +15,12 @@ type InputBoxProps = {
 };
 
 export default function InputBox({
-  lable,
+  label,
   name,
   type,
   placeholder,
   required,
+  onInput,
   onChange,
   isInput,
   isSubmitCheck,
@@ -42,18 +44,19 @@ export default function InputBox({
       {!isEdit && (
         <div className='flex w-full flex-col items-start justify-start gap-2'>
           <div className='flex gap-1 text-sm'>
-            <label className='font-base font-semibold' htmlFor={lable}>
-              {lable}
+            <label className='font-base font-semibold' htmlFor={label}>
+              {label}
             </label>
             {required ? <span className='text-[#f66a6a]'>*</span> : ''}
           </div>
           <input
-            id={lable}
+            id={label}
             name={name}
             type={type}
             className='w-full flex-1 gap-2 rounded-lg px-4 py-3 outline outline-1 outline-gray-200'
             placeholder={placeholder}
             required={required}
+            onInput={onInput}
             onChange={onChange}
             onBlur={handleBlur}
             defaultValue={defaultValue}

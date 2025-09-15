@@ -20,7 +20,7 @@ export default function BoardList() {
   }
 
   return (
-    <div className='mb-10 flex px-5'>
+    <div className='mb-10 flex w-full px-5'>
       <div className='flex w-full flex-col justify-start gap-4 self-stretch rounded-2xl bg-white p-4 shadow-[0px_0px_20px_0px_rgba(0,0,0,0.08)]'>
         <div className='inline-flex items-center justify-start gap-1 self-stretch px-2 py-1'>
           <div className='flex w-10 items-center justify-center gap-2.5'>
@@ -44,7 +44,7 @@ export default function BoardList() {
             </div>
           </div>
         </div>
-        <ul className='flex flex-col gap-4'>
+        <ul className='flex w-full flex-col gap-4'>
           {data?.fetchBoards.map((board: TBoard) => (
             <Board key={board._id} {...board} />
           ))}

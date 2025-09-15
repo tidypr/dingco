@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 type TextAreaBoxProps = {
-  lable: string;
+  label: string;
   name: string;
   placeholder: string;
   required?: boolean;
@@ -12,7 +12,7 @@ type TextAreaBoxProps = {
 };
 
 export default function TextAreaBox({
-  lable,
+  label,
   name,
   placeholder,
   required,
@@ -34,8 +34,8 @@ export default function TextAreaBox({
   return (
     <div className='flex w-full flex-col items-start justify-start gap-2'>
       <div className='flex gap-1'>
-        <label className='font-base font-semibold' htmlFor={lable}>
-          {lable}
+        <label className='font-base font-semibold' htmlFor={label}>
+          {label}
         </label>
         {required ? <span className='text-[#f66a6a]'>*</span> : ''}
       </div>
