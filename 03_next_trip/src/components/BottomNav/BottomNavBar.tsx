@@ -9,7 +9,7 @@ const NavItems = [
     label: '트립토크',
   },
   {
-    href: '/',
+    href: '/purchase',
     icon: <MdShoppingBag />,
     label: '숙박권 구매',
   },
@@ -19,28 +19,34 @@ const NavItems = [
     label: '마이페이지',
   },
   {
-    href: 'mypage/recent/product',
+    href: '/mypage/recent',
     icon: <MdVisibility />,
     label: '최근 본 상품',
   },
 ];
 
+const activePath = '/';
+
 export default function BottomNavBar() {
   return (
-    <nav className='fixed bottom-0 left-0 right-0 z-50 w-full bg-white'>
-      <div className='mb-5 flex items-center justify-start self-stretch px-5 py-2'>
+    <nav className='fixed bottom-0 left-0 right-0 z-50 w-full items-center justify-center bg-white tablet:flex'>
+      <div className='mb-5 flex w-full max-w-7xl items-center justify-between self-stretch px-5 py-2'>
         {NavItems.map((item) => (
           <Link
             href={item.href}
             key={item.label}
-            className='inline-flex flex-1 flex-col items-center justify-start gap-1'
+            className={`inline-flex flex-1 flex-col items-center justify-start gap-1`}
           >
             <div className='relative h-6 w-6 overflow-hidden'>
-              <div className='bg-gray-B absolute left-[2.50px] top-[2.50px] h-4 w-5'>
+              <div
+                className={`${activePath === item.href ? 'text-stone-900' : 'text-stone-300'} absolute left-[2.50px] top-[2.50px] h-4 w-5 text-gray-300`}
+              >
                 {item.icon}
               </div>
             </div>
-            <div className="text-gray-B justify-start self-stretch text-center font-['Pretendard_Variable'] text-xs font-medium leading-3">
+            <div
+              className={`${activePath === item.href ? 'text-stone-900' : 'text-stone-300'} justify-start self-stretch text-center font-['Pretendard_Variable'] text-xs font-medium leading-3`}
+            >
               {item.label}
             </div>
           </Link>

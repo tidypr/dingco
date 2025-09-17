@@ -10,6 +10,7 @@ type InputBoxProps = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isInput?: string;
   isSubmitCheck?: () => void;
+  value?: string;
   defaultValue?: string;
   isEdit?: boolean;
 };
@@ -23,6 +24,7 @@ export default function InputBox({
   onInput,
   onChange,
   isInput,
+  value,
   isSubmitCheck,
   defaultValue,
   isEdit,
@@ -43,11 +45,14 @@ export default function InputBox({
     <>
       {!isEdit && (
         <div className='flex w-full flex-col items-start justify-start gap-2'>
-          <div className='flex gap-1 text-sm'>
-            <label className='font-base font-semibold' htmlFor={label}>
-              {label}
+          <div className='flex w-full text-sm'>
+            <label
+              className='font-base flex w-full gap-1 font-semibold'
+              htmlFor={label}
+            >
+              <span>{label}</span>
+              {required ? <span className='text-[#f66a6a]'>*</span> : ''}
             </label>
-            {required ? <span className='text-[#f66a6a]'>*</span> : ''}
           </div>
           <input
             id={label}
@@ -57,17 +62,14 @@ export default function InputBox({
             placeholder={placeholder}
             required={required}
             onInput={onInput}
+            value={value}
             onChange={onChange}
             onBlur={handleBlur}
             defaultValue={defaultValue}
           />
-          <div className='h-10'>
-            <span className='text-[#f66a6a]'>
-              {warning ? '필수입력 사항 입니다.' : ''}
-            </span>
-          </div>
-          {/* {isInput ? <div></div> : <RequiredInput />} */}
-          {/* <input placeholder={`${placeholder} 입력해 주세요.`}></input> */}
+          {required && warning && (
+            <span className='text-[#f66a6a]'>필수입력 사항 입니다.</span>
+          )}
         </div>
       )}
     </>

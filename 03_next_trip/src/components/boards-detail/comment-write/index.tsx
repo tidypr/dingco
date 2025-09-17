@@ -8,16 +8,31 @@ import { useMutation } from '@apollo/client';
 import { useParams } from 'next/navigation';
 import { ChangeEvent, useState } from 'react';
 import { MdChatBubbleOutline } from 'react-icons/md';
-import InputBox from '../common/InputBox';
+import InputBox from '@/components/common/InputBox';
 
 import { Rate } from 'antd';
+import { FETCH_BOARD_COMMENTS } from '@/apis/graphql/boardComment.gql';
+
+const initComment = {
+  writer: '',
+  password: '',
+  contents: '',
+  rating: 3,
+};
 
 export default function CommentForm() {
-  const [comments, setComments] = useState('');
-  const [writer, setWriter] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [comment, setComment] = useState({ ...initComment });
   const { boardId } = useParams();
-  const [rating, setRating] = useState(3);
+  const [rating, setRating] = useState(initComment.rating);
+
+  const onChangeCommentData = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setComment((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   // const [createBoardComment] = useMutation<
   //   CreateBoardCommentMutation,
@@ -29,39 +44,33 @@ export default function CommentForm() {
   const onHandleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
+      console.log(boardId);
       const result = await createBoardComment({
         variables: {
-          createBoardCommentInput: {
-            writer: writer,
-            password: password,
-            rating: rating,
-            contents: comments,
-          },
+          createBoardCommentInput: { ...comment, rating },
           boardId: String(boardId),
         },
+        refetchQueries: [
+          {
+            query: FETCH_BOARD_COMMENTS,
+            variables: { boardId: String(boardId), page: 1 },
+          },
+        ],
+        awaitRefetchQueries: true,
       });
       console.log(result);
     } catch (error) {
       if (error instanceof Error) alert(error.message);
+    } finally {
+      setComment({ ...initComment });
+      setRating(3);
     }
   };
 
-  const onChangeWriter = (e: ChangeEvent<HTMLInputElement>) => {
-    setWriter(e.target.value);
-  };
-
-  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-
-  const onChangeContents = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setComments(event.target.value);
-  };
-
   return (
-    <div className='flex-col items-start gap-10 px-5'>
-      <div className='flex flex-col items-start gap-2'>
-        <div className='flex items-center gap-2'>
+    <div className='flex w-full flex-col items-start gap-10'>
+      <div className='flex w-full flex-col items-start gap-2'>
+        <div className='flex w-full items-center gap-2'>
           <MdChatBubbleOutline />
           <div className='text-base font-semibold leading-normal text-black'>
             댓글
@@ -71,21 +80,18 @@ export default function CommentForm() {
           className='flex w-full flex-col items-end justify-center gap-4'
           onSubmit={onHandleSubmit}
         >
-          {/* <div className='flex items-center gap-2'>
-            {Array.from({ length: 5 }).map((_, index) => (
-              <MdOutlineStar key={index} className='h-6 w-6 text-[#c7c7c7]' />
-            ))}
-          </div> */}
           <div className='flex w-full items-center gap-2'>
             <Rate onChange={setRating} value={rating} />
           </div>
-          <div className='flex w-full gap-4'>
+          <div className='flex w-full flex-col gap-4'>
             <InputBox
               label='작성자'
               name='writer'
               type='text'
               placeholder='작성자'
-              onChange={onChangeWriter}
+              value={comment.writer}
+              isInput={comment.writer}
+              onChange={onChangeCommentData}
               required
             />
             <InputBox
@@ -93,14 +99,18 @@ export default function CommentForm() {
               name='password'
               type='password'
               placeholder='비밀번호'
-              onChange={onChangePassword}
+              value={comment.password}
+              isInput={comment.password}
+              onChange={onChangeCommentData}
               required
             />
           </div>
           <div className='relative w-full'>
             <textarea
-              onChange={onChangeContents}
+              onChange={onChangeCommentData}
               rows={4}
+              name='contents'
+              value={comment.contents}
               className='flex h-36 w-full flex-col items-start rounded-lg px-4 py-3 text-base font-normal leading-normal text-gray-400 outline outline-1 outline-offset-[-1px] outline-gray-300'
               placeholder='댓글을 입력해 주세요.'
             />
@@ -108,7 +118,7 @@ export default function CommentForm() {
               0/100
             </div>
           </div>
-          <button className='h-12 w-[99px] items-center gap-2 rounded-lg bg-black px-3 py-2 text-center text-lg font-semibold leading-normal text-white'>
+          <button className='h-12 w-[76px] items-center gap-2 rounded-lg bg-black px-3 py-2 text-center text-sm font-semibold leading-normal text-white'>
             댓글 등록
           </button>
         </form>

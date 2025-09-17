@@ -14,9 +14,9 @@ import 'swiper/css/pagination';
 
 export default function Banner() {
   return (
-    <div className='relative mb-6 h-52 w-full min-w-[360px] max-w-full'>
+    <div className='relative mb-6 h-[200px] min-w-[360px] tablet:w-full'>
       <Swiper
-        className='h-full w-full'
+        className='h-full w-[360px] tablet:w-full'
         spaceBetween={50}
         slidesPerView={1}
         loop={true}
@@ -30,7 +30,7 @@ export default function Banner() {
         }}
       >
         {images.map((image, index) => (
-          <SwiperSlide key={index} className='relative h-full w-full'>
+          <SwiperSlide key={index} className='relative h-full w-[360px]'>
             <Image
               src={image}
               alt={`Slide ${index + 1}`}

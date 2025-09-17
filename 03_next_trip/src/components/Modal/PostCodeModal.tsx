@@ -34,13 +34,11 @@ export default function CustomModal({
   const [isOpen, setIsOpen] = useState(false);
 
   const handleComplete = (data: TAddressDaum) => {
-    console.log(data);
     const newAddress = {
       zipcode: data.zonecode,
       address: data.address,
     };
 
-    console.log(newAddress);
     onInputAddress?.(newAddress);
     setIsOpen(false);
   };
