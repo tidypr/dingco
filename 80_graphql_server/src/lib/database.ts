@@ -13,6 +13,7 @@ const DBconfig = new DataSource({
   entities: [Board],
   synchronize: true,
   logging: true,
+  dropSchema: true, // db초기화
 });
 
 export const dbconnect = async () => {

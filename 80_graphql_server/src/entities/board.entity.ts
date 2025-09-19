@@ -1,24 +1,31 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from "typeorm";
 
 @Entity()
-export class Board {
-  // @PrimaryGeneratedColumn("uuid")
-  @PrimaryGeneratedColumn("increment")
-  public number: number;
+export class Board extends BaseEntity {
+  @PrimaryGeneratedColumn("uuid")
+  // @PrimaryGeneratedColumn("increment")
+  public id!: string;
 
   @Column({ type: "text" })
-  public writer: string;
+  public writer!: string;
 
   @Column({ type: "text" })
-  public title: string;
+  public title!: string;
 
   @Column({ type: "text" })
-  public contents: string;
+  public contents!: string;
 
-  constructor(number: number, writer: string, title: string, contents: string) {
-    this.number = number;
-    this.writer = writer;
-    this.title = title;
-    this.contents = contents;
-  }
+  @Column({ type: "boolean", default: false })
+  public isDeleted!: boolean;
+
+  @Column({ type: "timestamp", default: null, nullable: true })
+  deletedAt?: Date;
+
+  // constructor(id: string, writer: string, title: string, contents: string) {
+  //   super();
+  //   this.id = id;
+  //   this.writer = writer;
+  //   this.title = title;
+  //   this.contents = contents;
+  // }
 }
