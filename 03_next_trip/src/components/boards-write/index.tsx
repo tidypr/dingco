@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, type ChangeEvent, type FormEvent } from 'react';
 import ImageUpload from '@/components/ImageUpload';
 import InputBox from '@/components/common/InputBox';
@@ -5,7 +7,7 @@ import TextAreaBox from '@/components/common/TextAreaBox';
 import { FETCH_BOARD, UPDATE_BOARD } from '@/apis/graphql/board';
 import { useMutation, useQuery } from '@apollo/client';
 import { useParams, useRouter } from 'next/navigation';
-import { getInputPassword } from '@/utils/utils';
+import { getInputPassword } from '@/utils/getInputPassword';
 import {
   CreateBoardDocument,
   CreateBoardMutation,
@@ -25,6 +27,7 @@ const initBoardFormData = {
   password: '',
   title: '',
   contents: '',
+  images: ['', '', ''],
   youtubeUrl: 'https://www.youtube.com/watch?v=c2Tr4029H9w',
   boardAddress: {
     zipcode: '',
@@ -38,15 +41,31 @@ type TAddress = {
   address: string;
 };
 
+type TData = {
+  fetchBoard: {
+    writer: string;
+    password: string;
+    title: string;
+    contents: string;
+    images: string[];
+    youtubeUrl: string;
+    boardAddress: {
+      zipcode: string;
+      address: string;
+      addressDetail: string;
+    };
+  };
+};
+
 export default function BoardsWrite({ isEdit }: TFormProps) {
-  const [boardFormData, setBoardFormData] = useState(initBoardFormData);
   const router = useRouter();
+  const [boardFormData, setBoardFormData] = useState(initBoardFormData);
   const [contents, setContents] = useState<string>('');
   const [youtubeUrl, setYoutubeUrl] = useState<string>();
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const { boardId } = useParams();
 
-  const { data } = useQuery(FETCH_BOARD, {
+  const { data } = useQuery<TData>(FETCH_BOARD, {
     variables: {
       boardId: boardId,
     },
@@ -57,6 +76,27 @@ export default function BoardsWrite({ isEdit }: TFormProps) {
       ...boardFormData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const onChangeImages = (idx: number, img: string) => {
+    setBoardFormData((prev) => {
+      return {
+        ...prev,
+        images: prev.images.map((el, index) => (index === idx ? img : el)),
+      };
+    });
+
+    console.log(boardFormData);
+  };
+  const onRemoveImages = (idx: number) => {
+    setBoardFormData((prev) => {
+      return {
+        ...prev,
+        images: prev.images.map((el, index) => (index === idx ? '' : el)),
+      };
+    });
+
+    console.log(boardFormData);
   };
 
   const onInputAddress = (address: TAddress) => {
@@ -105,6 +145,7 @@ export default function BoardsWrite({ isEdit }: TFormProps) {
 
   const onEditForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    e.stopPropagation();
 
     try {
       const inputPassword = getInputPassword();
@@ -169,10 +210,7 @@ export default function BoardsWrite({ isEdit }: TFormProps) {
             password: boardFormData.password,
             writer: boardFormData.writer,
             youtubeUrl,
-            images: [
-              'codecamp-file-storage/2024/1/10/IMG_9472.jpeg',
-              'codecamp-file-storage/2024/10/25/donggle1.jpeg',
-            ],
+            images: boardFormData.images,
             boardAddress: {
               ...boardFormData.boardAddress,
             },
@@ -306,10 +344,36 @@ export default function BoardsWrite({ isEdit }: TFormProps) {
               <label className='flex w-full gap-1' htmlFor='photo'>
                 <span>사진 첨부</span>
               </label>
-              <div className='flex gap-4'>
-                <ImageUpload />
-                <ImageUpload />
-              </div>
+              {!isEdit && (
+                <div className='flex gap-4'>
+                  {boardFormData.images.map((image, index) => {
+                    return (
+                      <ImageUpload
+                        key={index}
+                        image={image}
+                        idx={index}
+                        onChangeImages={onChangeImages}
+                        onRemoveImages={onRemoveImages}
+                      />
+                    );
+                  })}
+                </div>
+              )}
+              {isEdit && (
+                <div className='flex gap-4'>
+                  {data?.fetchBoard.images.map((image, index) => {
+                    return (
+                      <ImageUpload
+                        key={index}
+                        image={image}
+                        idx={index}
+                        onChangeImages={onChangeImages}
+                        onRemoveImages={onRemoveImages}
+                      />
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
         </div>

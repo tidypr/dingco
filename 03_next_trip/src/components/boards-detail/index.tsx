@@ -11,7 +11,7 @@ import Image from 'next/image';
 
 import { profile_a } from '@/assets/icons/icons';
 
-import { formatDate } from '@/utils/utils';
+import { formatDate } from '@/utils/formatDate';
 import Link from 'next/link';
 // import { IBoardDetail } from '@/types/BoardDetail';
 import TooltipComponent from '../common/TooltipComponent';
@@ -61,17 +61,21 @@ export default function BoardDetail() {
 
         {/* ===== 3 이미지 ===== */}
         {data?.fetchBoard?.images &&
-          data?.fetchBoard?.images.map((el, index) => (
-            <Image
-              key={index}
-              className='max-w-100'
-              width={360}
-              height={360}
-              // src={img1}
-              src={`http://storage.googleapis.com/${el}`}
-              alt='dw'
-            />
-          ))}
+          data?.fetchBoard?.images.map((el, index) =>
+            el ? (
+              <Image
+                key={index}
+                className='max-w-100'
+                width={360}
+                height={360}
+                // src={img1}
+                src={`https://storage.googleapis.com/${el}`}
+                alt='dw'
+              />
+            ) : (
+              ''
+            ),
+          )}
 
         {/* ===== 4 텍스트 ===== */}
         <p className='w-full whitespace-pre-wrap break-words leading-relaxed text-gray-700'>

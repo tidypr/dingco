@@ -2,7 +2,7 @@
 
 import { Ioutline_delete } from '@/assets/icons/icons';
 import { type TBoard } from '@/types';
-import { formatDate } from '@/utils/utils';
+import { formatDate } from '@/utils/formatDate';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useMutation } from '@apollo/client';
