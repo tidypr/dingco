@@ -58,14 +58,23 @@ export default function ImageUpload({
   return (
     <div className='relative flex h-[100px] w-[100px] flex-col items-center justify-center gap-2 overflow-hidden rounded-lg border-none bg-[#f2f2f2] object-cover px-2 text-sm font-normal leading-normal text-gray-400 tablet:h-40 tablet:w-40'>
       {image && (
-        <Image
-          className='h-full w-full'
-          // src={`https://storage.googleapis.com/${imageUrl}`}
-          src={`https://storage.googleapis.com/${image}`}
-          alt='alt'
-          fill
-          sizes='100px 100px'
-        />
+        <>
+          <Image
+            className='h-full w-full'
+            // src={`https://storage.googleapis.com/${imageUrl}`}
+            src={`https://storage.googleapis.com/${image}`}
+            alt='alt'
+            fill
+            sizes='100px 100px'
+          />
+          <button
+            type='button'
+            className='absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full bg-black text-white opacity-40 hover:opacity-100'
+            onClick={() => onRemoveImages(idx)}
+          >
+            <MdOutlineClose />
+          </button>
+        </>
       )}
       {!image && (
         <>
@@ -88,13 +97,6 @@ export default function ImageUpload({
           />
         </>
       )}
-      <button
-        type='button'
-        className='absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full bg-black text-white opacity-40 hover:opacity-100'
-        onClick={() => onRemoveImages(idx)}
-      >
-        <MdOutlineClose />
-      </button>
     </div>
   );
 }

@@ -18,12 +18,12 @@ import TooltipComponent from '../common/TooltipComponent';
 import CommentList from './comment-list';
 import CommentForm from '@/components/boards-detail/comment-write';
 import { useBoardDetailHook } from './hook';
+import { useRouter } from 'next/navigation';
 
 // export default function BoardDetail({ data, boardId }: IBoardDetail) {
 export default function BoardDetail() {
+  const router = useRouter();
   const { data, error, loading, boardId } = useBoardDetailHook();
-
-  console.log(data && data);
 
   if (loading) return <p className='flex-grow text-4xl'>로딩중...</p>;
   if (error) return <p className='text-7xl'>에러가 발생했습니다</p>;
@@ -102,12 +102,12 @@ export default function BoardDetail() {
             <div className='flex flex-col items-center justify-center gap-1'>
               <MdOutlineHeartBroken className='h-6 w-6 font-light' />
               {/* <Image className='h-6 w-6' src={Ioutline_bad} alt='outline_bad' /> */}
-              <div>24</div>
+              <div>0</div>
             </div>
             {/* heart - good */}
             <div className='flex flex-col items-center justify-center gap-1 text-[#f66a6a]'>
               <MdFavoriteBorder className='h-6 w-6' />
-              <div>12</div>
+              <div>0</div>
             </div>
           </div>
         </div>
@@ -117,7 +117,9 @@ export default function BoardDetail() {
           <div className='flex gap-6'>
             <button className='flex h-10 w-[105px] items-center justify-center gap-2 rounded-lg px-2 py-3 outline outline-1'>
               <MdMenu />
-              <span>목록으로</span>
+              <button type='button' onClick={() => router.back()}>
+                목록으로
+              </button>
             </button>
             <button className='flex h-10 w-[105px] items-center justify-center gap-2 rounded-lg px-2 py-3 outline outline-1'>
               <MdOutlineEdit />
