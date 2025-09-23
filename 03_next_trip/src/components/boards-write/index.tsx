@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, type ChangeEvent, type FormEvent } from 'react';
-import ImageUpload from '@/components/ImageUpload';
+import ImageUpload from './ImageUpload';
 import InputBox from '@/components/common/InputBox';
 import TextAreaBox from '@/components/common/TextAreaBox';
 import { FETCH_BOARD, UPDATE_BOARD } from '@/apis/graphql/board';
