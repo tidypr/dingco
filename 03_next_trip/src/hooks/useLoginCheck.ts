@@ -1,17 +1,21 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export const useLoginCheck = () => {
   const router = useRouter();
 
-  const loginCheckFn = () => {
-    // CHECK: build error
-    // alert('로그인을 먼저 해 주세요!');
-    router.push('/auth/login');
+  const LoginCheckFn = () => {
+    useEffect(() => {
+      const accessToken = localStorage.getItem('accessToken');
+      if (!accessToken) {
+        router.push('/auth/login');
+      }
+    }, []);
   };
 
   return {
-    loginCheck: loginCheckFn,
+    loginCheck: LoginCheckFn,
   };
 };

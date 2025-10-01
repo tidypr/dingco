@@ -24,7 +24,7 @@ export default function HotBoard() {
               key={board._id}
               className='flex w-full flex-row gap-2'
             >
-              {board?.images?.[0] && (
+              {board?.images && (
                 <div className='relative h-32 w-24 rounded'>
                   <Image
                     className='absolute left-0 top-0 h-32 w-24 rounded'

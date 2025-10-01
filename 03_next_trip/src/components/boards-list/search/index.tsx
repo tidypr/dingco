@@ -51,20 +51,20 @@ export default function Search({
   };
 
   return (
-    <div className='mb-6'>
+    <div>
       <p className='mb-4 text-lg font-semibold leading-tight text-gray-900'>
         트립토크 게시판
       </p>
       <form className='flex flex-col gap-3' onSubmit={onSubmitSearch}>
-        <span className='flex items-center gap-2 bg-gray-100 px-3 py-2 text-base'>
+        <span className='flex items-center gap-2 bg-gray-100 px-3 py-2 text-base rounded-lg'>
           <MdOutlineCalendarToday className='h-6 w-6 text-gray-500' />
-          <span className='flex h-10 items-center rounded-sm bg-gray-100 text-gray-400'>
+          <span className='flex h-10 items-center rounded-sm bg-gray-100 text-gray-400 gap-2'>
             <DatePicker selected={startDate} setDate={startDateFn} />
             <span>&nbsp;-&nbsp;</span>
             <DatePicker selected={endDate} setDate={endDateFn} />
           </span>
         </span>
-        <span className='flex items-center gap-2 bg-gray-100 px-3 py-2 text-base'>
+        <span className='flex items-center gap-2 bg-gray-100 px-3 py-2 text-base rounded-lg'>
           <MdOutlineSearch className='h-6 w-6 text-gray-500' />
           <input
             className='h-10 rounded-lg bg-gray-100'

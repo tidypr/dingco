@@ -1,5 +1,6 @@
+'use client';
 import { MdChat, MdShoppingBag, MdPerson, MdVisibility } from 'react-icons/md';
-
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
 const NavItems = [
@@ -25,9 +26,12 @@ const NavItems = [
   },
 ];
 
-const activePath = '/triptalk';
-
 export default function BottomNavBar() {
+  const pathName = usePathname();
+  console.log(pathName)
+  const activePath = pathName;
+  
+
   return (
     <nav className='fixed bottom-0 left-0 right-0 z-50 w-full items-center justify-center bg-white tablet:flex'>
       <div className='mb-5 flex w-full max-w-7xl items-center justify-between self-stretch px-5 py-2'>

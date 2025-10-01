@@ -77,7 +77,7 @@ export default function BoardItem({
           </span>
         </div>
         <div className='flex flex-1 flex-wrap content-center items-center justify-start gap-2'>
-          <span className='w-4 flex-1 justify-start text-xs font-medium leading-tight text-zinc-900'>
+          <span className='w-4 flex-1 justify-start text-xs font-medium leading-tight text-zinc-900 truncate'>
             {highlightKeyword(title || '제목없음')}
           </span>
         </div>

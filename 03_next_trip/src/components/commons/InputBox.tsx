@@ -14,6 +14,7 @@ type InputBoxProps = {
   defaultValue?: string;
   isEdit?: boolean;
   loginFailed?: boolean;
+  onBlur?: () => void;
 };
 
 export default function InputBox({
@@ -30,6 +31,7 @@ export default function InputBox({
   defaultValue,
   isEdit,
   loginFailed,
+  onBlur,
 }: InputBoxProps) {
   const [touched, setTouched] = useState(false);
 
@@ -42,7 +44,6 @@ export default function InputBox({
 
   // focus out & input null
   const warning = touched && !isInput;
-
   return (
     <>
       {!isEdit && (
@@ -68,7 +69,7 @@ export default function InputBox({
             onInput={onInput}
             value={value}
             onChange={onChange}
-            onBlur={handleBlur}
+            onBlur={onBlur ? onBlur : handleBlur}
             defaultValue={defaultValue}
           />
           {required && warning && (

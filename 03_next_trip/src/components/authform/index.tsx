@@ -8,6 +8,8 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { CREATE_USER, LOGIN_USER } from './queries';
 import { useAccessTokenStore } from '@/store/accessTokenStore';
+import { useRouter } from 'next/navigation';
+import { CustomModal2 } from '../Modal/CustomModal2';
 
 export default function Authform({
   onToggleOpen,
@@ -21,6 +23,8 @@ export default function Authform({
   const [passwordCheck, setpasswordCheck] = useState('');
   const [loginFailed, setloginFailed] = useState(false);
   const { setAccessToken } = useAccessTokenStore();
+  const router = useRouter();
+  const [isSuccessSignup, setIsSuccessSignup] = useState(false);
 
   const [createUser] = useMutation(CREATE_USER);
 
@@ -44,7 +48,8 @@ export default function Authform({
           },
         },
       });
-      alert('회원가입이 완료되었습니다. 로그인 해주세요.');
+      // alert('회원가입이 완료되었습니다. 로그인 해주세요.');
+      setIsSuccessSignup(true);
       setswitchSign('signIn');
     } catch (error) {
       if (error instanceof Error) alert(error.message);
@@ -63,9 +68,15 @@ export default function Authform({
           password,
         },
       });
-      console.log(result.data?.loginUser.accessToken);
-      setAccessToken(result.data?.loginUser.accessToken || '');
+
+      const accessToken = result.data?.loginUser.accessToken;
+
+      console.log(accessToken);
+      setAccessToken(accessToken);
+      // TODO: 임시, 교체예정
+      localStorage.setItem('accessToken', accessToken);
       onToggleOpen?.();
+      router.push('/');
     } catch (error) {
       setloginFailed(true);
       // if (error instanceof Error) alert(error.message);
@@ -96,7 +107,7 @@ export default function Authform({
       <div className='flex w-full flex-col items-center'>
         <div className="justify-start text-center font-['Pretendard_Variable'] text-xs font-medium leading-tight text-gray-800">
           {switchSign === 'signIn'
-            ? '트립트립에 로그인 하세요.'
+            ? '트립트립에 로그인 하세요..'
             : '회원가입을 위해 아래 빈칸을 모두 채워 주세요.'}
         </div>
       </div>
@@ -187,9 +198,11 @@ export default function Authform({
           </button>
         )}
         {switchSign === 'signUp' && (
-          <button className='w-full rounded-md bg-blue-500 py-2 text-white'>
-            회원가입
-          </button>
+          <>
+            <button className='w-full rounded-md bg-blue-500 py-2 text-white'>
+              회원가입
+            </button>
+          </>
         )}
         <button
           type='button'
@@ -199,6 +212,14 @@ export default function Authform({
           {switchSign === 'signIn' ? '회원가입' : '로그인'}
         </button>
       </div>
+      {isSuccessSignup && (
+        <CustomModal2
+          isSuccessSignup={isSuccessSignup}
+          className='w-full rounded-md bg-blue-500 py-2 text-white'
+          onToggleOpen={onToggleOpen}
+          onClickSwitch={onClickSwitch}
+        />
+      )}
     </form>
   );
 }

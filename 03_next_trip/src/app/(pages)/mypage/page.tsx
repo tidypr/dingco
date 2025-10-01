@@ -3,8 +3,8 @@ import { useLoginCheck } from '@/hooks/useLoginCheck';
 
 export default function MyPage() {
   const { loginCheck } = useLoginCheck();
-
   loginCheck();
+
 
   return (
     <>

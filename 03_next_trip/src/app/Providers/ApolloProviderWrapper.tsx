@@ -9,13 +9,18 @@ import {
   ApolloProvider,
 } from '@apollo/client';
 import createUploadLink from 'apollo-upload-client/createUploadLink.mjs';
+import { useEffect } from 'react';
 
 const BaseUrl = 'http://main-practice.codebootcamp.co.kr/graphql';
 const GLOBAL_STATE = new InMemoryCache();
 
 export default function ApolloProviderWrapper({ children }: IProps) {
-  const { accessToken } = useAccessTokenStore();
-  console.log(accessToken);
+  const { accessToken, setAccessToken } = useAccessTokenStore();
+
+  useEffect(() => {
+    const result = localStorage.getItem('accessToken');
+    if (result) setAccessToken(result);
+  }, [setAccessToken]);
 
   const uploadLink = createUploadLink({
     uri: BaseUrl,

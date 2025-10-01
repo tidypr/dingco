@@ -32,7 +32,7 @@ export function DatePicker({
           <Button
             variant='ghost'
             id='date'
-            className='w-fit justify-between text-lg font-normal'
+            className='w-fit justify-between text-lg font-normal p-0'
           >
             {selected ? selected.toLocaleDateString() : 'YYYY.MM.DD'}
           </Button>
